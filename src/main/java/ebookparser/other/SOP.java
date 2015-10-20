@@ -41,7 +41,6 @@ public class SOP {
     private static Pattern epubCover;
 
 
-
     static {
         fb2File = Pattern.compile("(?i).*fb2$");
         fb2zipFile = Pattern.compile("(?i).*fb2\\.zip$");
@@ -81,247 +80,124 @@ public class SOP {
         return fb2File;
     }
 
-    public static void setFb2File(Pattern fb2File) {
-        SOP.fb2File = fb2File;
-    }
-
     public static Pattern getFb2zipFile() {
         return fb2zipFile;
-    }
-
-    public static void setFb2zipFile(Pattern fb2zipFile) {
-        SOP.fb2zipFile = fb2zipFile;
     }
 
     public static Pattern getXmlEncoding() {
         return xmlEncoding;
     }
 
-    public static void setXmlEncoding(Pattern xmlEncoding) {
-        SOP.xmlEncoding = xmlEncoding;
-    }
-
     public static Pattern getFb2FirstName() {
         return fb2FirstName;
-    }
-
-    public static void setFb2FirstName(Pattern fb2FirstName) {
-        SOP.fb2FirstName = fb2FirstName;
     }
 
     public static Pattern getFb2MiddleName() {
         return fb2MiddleName;
     }
 
-    public static void setFb2MiddleName(Pattern fb2MiddleName) {
-        SOP.fb2MiddleName = fb2MiddleName;
-    }
-
     public static Pattern getFb2LastName() {
         return fb2LastName;
-    }
-
-    public static void setFb2LastName(Pattern fb2LastName) {
-        SOP.fb2LastName = fb2LastName;
     }
 
     public static Pattern getFb2Author() {
         return fb2Author;
     }
 
-    public static void setFb2Author(Pattern fb2Author) {
-        SOP.fb2Author = fb2Author;
-    }
-
     public static Pattern getFb2Title() {
         return fb2Title;
-    }
-
-    public static void setFb2Title(Pattern fb2Title) {
-        SOP.fb2Title = fb2Title;
     }
 
     public static Pattern getFb2genre() {
         return fb2genre;
     }
 
-    public static void setFb2genre(Pattern fb2genre) {
-        SOP.fb2genre = fb2genre;
-    }
-
     public static Pattern getFb2Language() {
         return fb2Language;
-    }
-
-    public static void setFb2Language(Pattern fb2Language) {
-        SOP.fb2Language = fb2Language;
     }
 
     public static Pattern getFb2Sequence() {
         return fb2Sequence;
     }
 
-    public static void setFb2Sequence(Pattern fb2Sequence) {
-        SOP.fb2Sequence = fb2Sequence;
-    }
-
     public static Pattern getFb2SequenceName() {
         return fb2SequenceName;
-    }
-
-    public static void setFb2SequenceName(Pattern fb2SequenceName) {
-        SOP.fb2SequenceName = fb2SequenceName;
     }
 
     public static Pattern getFb2SequenceNumber() {
         return fb2SequenceNumber;
     }
 
-    public static void setFb2SequenceNumber(Pattern fb2SequenceNumber) {
-        SOP.fb2SequenceNumber = fb2SequenceNumber;
-    }
-
     public static Pattern getFb2Annotation() {
         return fb2Annotation;
-    }
-
-    public static void setFb2Annotation(Pattern fb2Annotation) {
-        SOP.fb2Annotation = fb2Annotation;
     }
 
     public static Pattern getFb2Cover() {
         return fb2Cover;
     }
 
-    public static void setFb2Cover(Pattern fb2CoverName) {
-        SOP.fb2Cover = fb2CoverName;
-    }
-
     public static Pattern getFb2PublisherInfo() {
         return fb2PublisherInfo;
-    }
-
-    public static void setFb2PublisherInfo(Pattern fb2PublisherInfo) {
-        SOP.fb2PublisherInfo = fb2PublisherInfo;
     }
 
     public static Pattern getFb2Publisher() {
         return fb2Publisher;
     }
 
-    public static void setFb2Publisher(Pattern fb2Publisher) {
-        SOP.fb2Publisher = fb2Publisher;
-    }
-
     public static Pattern getFb2City() {
         return fb2City;
-    }
-
-    public static void setFb2City(Pattern fb2City) {
-        SOP.fb2City = fb2City;
     }
 
     public static Pattern getFb2Year() {
         return fb2Year;
     }
 
-    public static void setFb2Year(Pattern fb2Year) {
-        SOP.fb2Year = fb2Year;
-    }
-
     public static Pattern getFb2ISBN() {
         return fb2ISBN;
-    }
-
-    public static void setFb2ISBN(Pattern fb2ISBN) {
-        SOP.fb2ISBN = fb2ISBN;
     }
 
     public static Pattern getFb2Body() {
         return fb2Body;
     }
 
-    public static void setFb2Body(Pattern fb2Body) {
-        SOP.fb2Body = fb2Body;
-    }
-
     public static Pattern getFb2Section() {
         return fb2Section;
-    }
-
-    public static void setFb2Section(Pattern fb2Section) {
-        SOP.fb2Section = fb2Section;
     }
 
     public static Pattern getFb2P() {
         return fb2P;
     }
 
-    public static void setFb2P(Pattern fb2P) {
-        SOP.fb2P = fb2P;
-    }
-
     public static Pattern getFb2ChapterTitle() {
         return fb2ChapterTitle;
-    }
-
-    public static void setFb2ChapterTitle(Pattern fb2ChapterTitle) {
-        SOP.fb2ChapterTitle = fb2ChapterTitle;
     }
 
     public static Pattern getEpubFile() {
         return epubFile;
     }
 
-    public static void setEpubFile(Pattern epubFile) {
-        SOP.epubFile = epubFile;
-    }
-
     public static Pattern getEpubDescription() {
         return epubDescription;
-    }
-
-    public static void setEpubDescription(Pattern epubDescription) {
-        SOP.epubDescription = epubDescription;
     }
 
     public static Pattern getEpubTitle() {
         return epubTitle;
     }
 
-    public static void setEpubTitle(Pattern epubTitle) {
-        SOP.epubTitle = epubTitle;
-    }
-
     public static Pattern getEpubAuthor() {
         return epubAuthor;
-    }
-
-    public static void setEpubAuthor(Pattern epubAuthor) {
-        SOP.epubAuthor = epubAuthor;
     }
 
     public static Pattern getEpubLanguage() {
         return epubLanguage;
     }
 
-    public static void setEpubLanguage(Pattern epubLanguage) {
-        SOP.epubLanguage = epubLanguage;
-    }
-
     public static Pattern getEpubGenre() {
         return epubGenre;
-    }
-
-    public static void setEpubGenre(Pattern epubGenre) {
-        SOP.epubGenre = epubGenre;
     }
 
     public static Pattern getEpubCover() {
         return epubCover;
     }
 
-    public static void setEpubCover(Pattern epubCover) {
-        SOP.epubCover = epubCover;
-    }
 }
