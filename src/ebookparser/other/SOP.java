@@ -1,4 +1,4 @@
-package ebookparser.parser;
+package ebookparser.other;
 
 import java.util.regex.Pattern;
 
@@ -31,7 +31,6 @@ class SOP {
     protected static Pattern fb2P;
     protected static Pattern fb2ChapterTitle;
 
-
     static {
         fb2File = Pattern.compile("(?i).*fb2$");
         fb2zipFile = Pattern.compile("(?i).*fb2\\.zip$");
@@ -57,7 +56,6 @@ class SOP {
         fb2SequenceNumber = Pattern.compile("number=\"(.*?)\"");
         fb2Annotation = Pattern.compile("(?s)<annotation>(.*?)</annotation>");
         fb2CoverName = Pattern.compile("(?s)<coverpage>.*href=\"#(.*?)\".*</coverpage>");
-
     }
 
 }

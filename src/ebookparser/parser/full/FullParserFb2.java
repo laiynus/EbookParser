@@ -1,12 +1,17 @@
-package ebookparser.parser;
+package ebookparser.parser.full;
 
-import ebookparser.book.*;
+import ebookparser.book.children.Chapter;
+import ebookparser.book.Ebook;
+import ebookparser.book.children.Person;
+import ebookparser.book.children.Publisher;
+import ebookparser.other.SOP;
+import ebookparser.parser.Base64Decoder;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.regex.Matcher;
 
-public class InstantParserFb2 {
+public class FullParserFb2 {
 
     private final int MAX_XMLINFO_SIZE = 80;
     private final int MAX_FB2_SIZE = 2097152;
@@ -15,7 +20,7 @@ public class InstantParserFb2 {
     private InputStream input;
 
 
-    InstantParserFb2(Ebook eBook, InputStream input) throws IOException {
+    FullParserFb2(Ebook eBook, InputStream input) throws IOException {
         this.eBook = eBook;
         this.source = this.createSource(input);
         this.input = input;
@@ -23,9 +28,9 @@ public class InstantParserFb2 {
 
     private String createSource(InputStream stream) throws IOException, NullPointerException {
         byte[] buffer = readInputStream(stream);
-        eBook.encoding = this.getXmlEncoding(buffer);
-        String preparedInput = new String(buffer, eBook.encoding);
-        Matcher matcher = SOP.fb2Annotation.matcher(preparedInput);
+        eBook.setEncoding(this.getXmlEncoding(buffer));
+        String preparedInput = new String(buffer, eBook.getEncoding());
+        Matcher matcher = SOP.getFb2Annotation().matcher(preparedInput);
         if (matcher.find()) {
             eBook.setAnnotation(extractAnotation(matcher.group(1)));
             preparedInput = matcher.replaceFirst("");
@@ -36,7 +41,7 @@ public class InstantParserFb2 {
     private String extractAnotation(String input) {
         Matcher matcher;
         String anotation = new String();
-        matcher = SOP.fb2P.matcher(input);
+        matcher = SOP.getFb2P().matcher(input);
         while (matcher.find())
             anotation += matcher.group(1).trim() + "\n";
         return anotation;
@@ -72,7 +77,7 @@ public class InstantParserFb2 {
     private String getXmlEncoding(byte[] input) throws IOException {
         String encoding = null;
         String xmlHeader = new String(input, 0, MAX_XMLINFO_SIZE, "ISO-8859-1");
-        Matcher matcher = SOP.xmlEncoding.matcher(xmlHeader.toString());
+        Matcher matcher = SOP.getXmlEncoding().matcher(xmlHeader.toString());
         if (matcher.find())
             encoding = matcher.group(1);
         else
@@ -83,13 +88,13 @@ public class InstantParserFb2 {
     private Person extractPerson(String input) {
         Matcher matcher;
         Person person = new Person();
-        matcher = SOP.fb2FirstName.matcher(input);
+        matcher = SOP.getFb2FirstName().matcher(input);
         if (matcher.find())
             person.setFirstName(matcher.group(1).trim());
-        matcher = SOP.fb2MiddleName.matcher(input);
+        matcher = SOP.getFb2MiddleName().matcher(input);
         if (matcher.find())
             person.setMiddleName(matcher.group(1).trim());
-        matcher = SOP.fb2LastName.matcher(input);
+        matcher = SOP.getFb2LastName().matcher(input);
         if (matcher.find())
             person.setLastName(matcher.group(1).trim());
         return person;
@@ -98,16 +103,16 @@ public class InstantParserFb2 {
     private Publisher extractPublisher(String input) {
         Matcher matcher;
         Publisher publisher = new Publisher();
-        matcher = SOP.fb2Publisher.matcher(input);
+        matcher = SOP.getFb2Publisher().matcher(input);
         if (matcher.find())
             publisher.setPublisher(matcher.group(1).trim());
-        matcher = SOP.fb2City.matcher(input);
+        matcher = SOP.getFb2City().matcher(input);
         if (matcher.find())
             publisher.setCity(matcher.group(1).trim());
-        matcher = SOP.fb2Year.matcher(input);
+        matcher = SOP.getFb2Year().matcher(input);
         if (matcher.find())
             publisher.setDateOfPublish(matcher.group(1).trim());
-        matcher = SOP.fb2ISBN.matcher(input);
+        matcher = SOP.getFb2ISBN().matcher(input);
         if (matcher.find())
             publisher.setIsbn(matcher.group(1).trim());
         return publisher;
@@ -116,7 +121,7 @@ public class InstantParserFb2 {
     private Chapter extractListChapters(String input, int i) {
         Matcher matcher;
         Chapter chapter = new Chapter();
-        matcher = SOP.fb2ChapterTitle.matcher(input);
+        matcher = SOP.getFb2ChapterTitle().matcher(input);
         if (matcher.find())
             chapter.setName(matcher.group(1).trim());
         chapter.setNumber(i);
@@ -126,33 +131,33 @@ public class InstantParserFb2 {
 
     protected void parse() {
         Matcher matcher;
-        matcher = SOP.fb2Author.matcher(source);
+        matcher = SOP.getFb2Author().matcher(source);
         while (matcher.find())
             eBook.getAuthors().add(extractPerson(matcher.group(1)));
-        matcher = SOP.fb2Title.matcher(source);
+        matcher = SOP.getFb2Title().matcher(source);
         if (matcher.find())
             eBook.setTitle(matcher.group(1));
-        matcher = SOP.fb2PublisherInfo.matcher(source);
+        matcher = SOP.getFb2Publisher().matcher(source);
         if (matcher.find())
             eBook.setPublisher(extractPublisher(matcher.group(1)));
-        matcher = SOP.fb2genre.matcher(source);
+        matcher = SOP.getFb2genre().matcher(source);
         while (matcher.find())
             eBook.getFb2Genres().add(matcher.group(1));
-        matcher = SOP.fb2Language.matcher(source);
+        matcher = SOP.getFb2Language().matcher(source);
         if (matcher.find())
             eBook.setLanguage(matcher.group(1));
-        matcher = SOP.fb2ChapterTitle.matcher(source);
+        matcher = SOP.getFb2ChapterTitle().matcher(source);
         if (matcher.find()) {
             String sequence = matcher.group(1);
-            matcher = SOP.fb2SequenceName.matcher(sequence);
+            matcher = SOP.getFb2SequenceName().matcher(sequence);
             if (matcher.find())
                 eBook.setSequenceName(matcher.group(1));
-            matcher = SOP.fb2SequenceNumber.matcher(sequence);
+            matcher = SOP.getFb2SequenceNumber().matcher(sequence);
             if (matcher.find())
                 eBook.setSequenceNumber(matcher.group(1));
         }
         if (eBook.isDoExtractCover() == true) {
-            matcher = SOP.fb2CoverName.matcher(source);
+            matcher = SOP.getFb2CoverName().matcher(source);
             if (matcher.find()) {
                 matcher.group(1);
                 eBook.setCover(getCover());
@@ -160,19 +165,19 @@ public class InstantParserFb2 {
         }
         if (eBook.getCurrentChapter().getNumber() != -1) {
             if (eBook.getCurrentChapter().getNumber() == 0) {
-                matcher = SOP.fb2Section.matcher(source);
+                matcher = SOP.getFb2Section().matcher(source);
                 int i = 0;
                 while (matcher.find()) {
                     i++;
-                    eBook.listChapters.add(extractListChapters(matcher.group(1), i));
+                    eBook.getListChapters().add(extractListChapters(matcher.group(1), i));
                 }
             } else {
-                eBook.setCurrentChapter(setChapter(eBook.currentChapter.number));
-                matcher = SOP.fb2Section.matcher(source);
+                eBook.setCurrentChapter(setChapter(eBook.getCurrentChapter().getNumber()));
+                matcher = SOP.getFb2Section().matcher(source);
                 int i = 0;
                 while (matcher.find()) {
                     i++;
-                    eBook.listChapters.add(extractListChapters(matcher.group(1), i));
+                    eBook.getListChapters().add(extractListChapters(matcher.group(1), i));
                 }
             }
 
@@ -185,7 +190,7 @@ public class InstantParserFb2 {
     public Chapter setChapter(int numberChapter) {
         Chapter chapter = new Chapter();
         Matcher matcher;
-        matcher = SOP.fb2Section.matcher(source);
+        matcher = SOP.getFb2Section().matcher(source);
         int i = 0;
         while (matcher.find()) {
             chapter.setTextChapter(matcher.group(1).trim());

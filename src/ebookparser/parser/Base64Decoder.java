@@ -1,4 +1,4 @@
-package ebookparser.book;
+package ebookparser.parser;
 
 /**
  * Base64Decoder

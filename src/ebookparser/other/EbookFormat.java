@@ -1,4 +1,4 @@
-package ebookparser.book;
+package ebookparser.other;
 
 /**
  * EBookFormat - Enumerations that contains a description of the format
@@ -12,5 +12,9 @@ public enum EbookFormat {
     /**
      * FictionBook is an open XML-based e-book format.
      */
-    FB2
+    FB2,
+    /**
+     * Electronic Publication is an open XML-based e-book format.
+     */
+    EPUB
 }

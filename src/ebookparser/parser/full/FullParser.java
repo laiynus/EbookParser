@@ -1,6 +1,8 @@
-package ebookparser.parser;
+package ebookparser.parser.full;
 
-import ebookparser.book.EbookFormat;
+import ebookparser.other.EbookFormat;
+import ebookparser.other.SOP;
+import ebookparser.parser.Parser;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,7 +10,7 @@ import java.io.InputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-public class InstantParser extends Parser {
+public class FullParser extends Parser {
 
     /**
      * Filled fields of the EBook with
@@ -32,7 +34,7 @@ public class InstantParser extends Parser {
     private void parseFb2() {
         try {
             InputStream inputStream = new FileInputStream(this.eBook.getFileName());
-            InstantParserFb2 parser = new InstantParserFb2(this.eBook, inputStream);
+            FullParserFb2 parser = new FullParserFb2(this.eBook, inputStream);
             parser.parse();
             inputStream.close();
         } catch (IOException e) {
@@ -49,7 +51,7 @@ public class InstantParser extends Parser {
             ZipFile zipFile = new ZipFile(this.eBook.getFileName());
             ZipEntry entry = zipFile.entries().nextElement();
             InputStream inputStream = zipFile.getInputStream(entry);
-            InstantParserFb2 parser = new InstantParserFb2(this.eBook, inputStream);
+            FullParserFb2 parser = new FullParserFb2(this.eBook, inputStream);
             parser.parse();
             inputStream.close();
             zipFile.close();

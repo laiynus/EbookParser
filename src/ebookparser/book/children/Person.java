@@ -1,4 +1,4 @@
-package ebookparser.book;
+package ebookparser.book.children;
 
 /**
  * Class containing the data of the person, the author or translator
